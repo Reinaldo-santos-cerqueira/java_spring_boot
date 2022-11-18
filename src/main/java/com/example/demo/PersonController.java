@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.model.Person;
+import com.example.demo.data.vo.v1.PersonVo;
 import com.example.demo.services.PersonServices;
 
 @RestController
@@ -29,7 +29,7 @@ public class PersonController {
 		value = "/{id}",
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public Person findById(@PathVariable(value = "id")Long id) throws Exception {
+	public PersonVo findById(@PathVariable(value = "id")Long id) throws Exception {
 
 		return service.findById(id);
 		
@@ -38,7 +38,7 @@ public class PersonController {
 	@GetMapping(
 		produces = MediaType.APPLICATION_JSON_VALUE
 	)
-	public List<Person> findAll(){
+	public List<PersonVo> findAll(){
 
 		return service.findAll();
 		
@@ -48,7 +48,7 @@ public class PersonController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE
 		)
-		public Person create( @RequestBody Person person ){
+		public PersonVo create( @RequestBody PersonVo person ){
 
 			return service.create(person);
 			
@@ -58,16 +58,14 @@ public class PersonController {
 			produces = MediaType.APPLICATION_JSON_VALUE,
 			consumes = MediaType.APPLICATION_JSON_VALUE
 		)
-		public Person update( @RequestBody Person person ){
+		public PersonVo update( @RequestBody PersonVo person ){
 
 			return service.update(person);
 			
 	}
 	
-	@DeleteMapping(
-			value="/{id}"
-	)
-		public ResponseEntity<?> delete( @ PathVariable(value = "id") Long id ){
+	@DeleteMapping(value="/{id}")
+		public ResponseEntity<?> delete( @PathVariable(value = "id") Long id ){
 
 			service.delete(id);
 			return ResponseEntity.noContent().build();
